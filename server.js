@@ -1,3 +1,5 @@
+
+require('dotenv').config();
 let express = require("express"),
   path = require('path'),
   nodeMailer = require('nodemailer'),
@@ -15,15 +17,18 @@ app.post('/send-email', function (req, res) {
       host: 'smtp.gmail.com',
       port: 465,
       secure: true,
-      auth: {
-          // should be replaced with real sender's account
-          user: 'hello@gmail.com',
-          pass: 'test'
+      // auth: {
+      //     // should be replaced with real sender's account
+      //     user: '',
+      //     pass: ''
+      // }
+      auth:{
+
       }
   });
   let mailOptions = {
       // should be replaced with real recipient's account
-      to: 'info@gmail.com',
+      to: process.env.TO,
       subject: req.body.subject,
       body: req.body.message
   };
