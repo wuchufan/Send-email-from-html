@@ -17,20 +17,22 @@ app.post('/send-email', function (req, res) {
       host: 'smtp.gmail.com',
       port: 465,
       secure: true,
-      // auth: {
-      //     // should be replaced with real sender's account
-      //     user: '',
-      //     pass: ''
-      // }
-      auth:{
-
+      auth: {
+          // should be replaced with real sender's account
+          user: process.env.AUTH_USER,
+          pass: process.env.AUTH_PASS
       }
+
   });
   let mailOptions = {
       // should be replaced with real recipient's account
-      to: process.env.TO,
+      to: process.env.AUTH_USER,
       subject: req.body.subject,
-      body: req.body.message
+      // text: req.body.message,
+      
+      // attachments:[{filename:'Logo.jpg',
+      //   path:'./src/Logo.jpg'
+      // }]
   };
   transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
